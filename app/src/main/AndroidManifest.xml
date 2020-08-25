@@ -4,6 +4,11 @@
     package="com.justai.aimybox.assistant">
 
     <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+    <uses-permission android:name="com.android.alarm.permission.SET_ALARM"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+
+    <meta-data android:name="com.facebook.sdk.AutoInitEnabled"
+        android:value="false"/>
 
     <application
         android:name=".AimyboxApplication"
@@ -21,6 +26,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <receiver android:name=".AlarmReceiver"/>
 
     </application>
 

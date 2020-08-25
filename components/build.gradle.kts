@@ -64,6 +64,7 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.1")
 
     implementation("com.github.bumptech.glide:glide:4.9.0")
+    implementation(project(mapOf("path" to ":app")))
     annotationProcessor("com.github.bumptech.glide:compiler:4.9.0")
 
     implementation("com.justai.aimybox:core:$aimyboxVersion")

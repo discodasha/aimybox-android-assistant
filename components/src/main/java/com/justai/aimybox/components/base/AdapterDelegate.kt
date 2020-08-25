@@ -7,7 +7,6 @@ import androidx.annotation.IdRes
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.justai.aimybox.components.R
 
 abstract class AdapterDelegate<TItem, TViewHolder : AdapterDelegate.ViewHolder<TItem>>(
     private val itemClass: Class<TItem>
