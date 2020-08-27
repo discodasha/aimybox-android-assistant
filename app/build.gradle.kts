@@ -14,7 +14,7 @@ android {
     defaultConfig {
         applicationId = "com.justai.aimybox.assistant"
 
-        minSdkVersion(21)
+        minSdkVersion(23)
         targetSdkVersion(29)
 
         versionName = componentsVersion
@@ -40,6 +40,7 @@ android {
         isWarningsAsErrors = false
         isAbortOnError = true
     }
+    buildToolsVersion = "30.0.0"
 }
 
 repositories {
@@ -68,6 +69,6 @@ dependencies {
     implementation("com.justai.aimybox:components:$componentsVersion")
     implementation("com.justai.aimybox:core:$aimyboxVersion")
     implementation("com.justai.aimybox:google-platform-speechkit:$aimyboxVersion")
-
-    implementation("com.facebook.android:facebook-android-sdk:4.40.0")
+    implementation("com.justai.aimybox:dummy-api:$aimyboxVersion")
+    implementation("com.justai.aimybox:kaldi-speechkit:$aimyboxVersion")
 }
