@@ -71,4 +71,5 @@ dependencies {
     implementation("com.justai.aimybox:google-platform-speechkit:$aimyboxVersion")
     implementation("com.justai.aimybox:dummy-api:$aimyboxVersion")
     implementation("com.justai.aimybox:kaldi-speechkit:$aimyboxVersion")
+    implementation("com.justai.aimybox:snowboy-speechkit:$aimyboxVersion")
 }

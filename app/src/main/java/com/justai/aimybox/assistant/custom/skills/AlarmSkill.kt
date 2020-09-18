@@ -26,20 +26,40 @@ class AlarmSkill(context_: Context) : CustomSkill<AimyboxRequest, AimyboxRespons
         aimybox: Aimybox,
         defaultHandler: suspend (Response) -> Unit
     ) {
-        val message = response.data?.asJsonObject?.get("text")?.asString ?: "Wake up, buddy!"
-        val timestamp = response.data?.asJsonObject?.get("timestamp")?.asLong ?: 0
+        val responseData = response.data?.asJsonObject
+        val message = responseData?.get("text")?.asString ?: "Wake up, buddy!"
+        val timestamp = responseData?.get("timestamp")?.asLong ?: 0
 
-        this.createAlarm(message, timestamp)
+        if (responseData?.get("isRecurrent")?.asBoolean!!) {
+            this.createRecurrentAlarm(responseData.get("recurrentDay").asInt, timestamp)
+        } else
+            this.createOnetimeAlarm(message, timestamp)
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    private fun createAlarm(message: String, timestamp: Long) {
+    private fun createOnetimeAlarm(message: String, timestamp: Long) {
         val t: ZoneOffset = ZoneOffset.of("+03:00")
 
         val time = LocalDateTime.ofEpochSecond(timestamp/1000, 0, t)
 
         val intent = Intent(AlarmClock.ACTION_SET_ALARM).apply {
             putExtra(AlarmClock.EXTRA_MESSAGE, message)
+            putExtra(AlarmClock.EXTRA_HOUR, time.hour)
+            putExtra(AlarmClock.EXTRA_MINUTES, time.minute)
+        }
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        callImplicitIntent(intent, context)
+    }
+
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun createRecurrentAlarm(recurrence: Int, timestamp: Long) {
+        val t: ZoneOffset = ZoneOffset.of("+03:00")
+
+        val time = LocalDateTime.ofEpochSecond(timestamp/1000, 0, t)
+
+        val intent = Intent(AlarmClock.ACTION_SET_ALARM).apply {
+            putExtra(AlarmClock.EXTRA_DAYS, arrayListOf(recurrence))
             putExtra(AlarmClock.EXTRA_HOUR, time.hour)
             putExtra(AlarmClock.EXTRA_MINUTES, time.minute)
         }
